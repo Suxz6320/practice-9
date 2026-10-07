@@ -1,0 +1,40 @@
+{
+  "overview": {
+    "studyRooms": 12,
+    "totalSeats": 778,
+    "occupiedSeats": 403,
+    "cafeterias": 5,
+    "cafeteriaSeats": 2000,
+    "activeStudents": 4030
+  },
+  "occupancyByBuilding": [
+    { "building": "图书馆", "seats": 272, "occupied": 183 },
+    { "building": "教学楼A", "seats": 180, "occupied": 55 },
+    { "building": "教学楼B", "seats": 160, "occupied": 120 },
+    { "building": "实验楼C", "seats": 110, "occupied": 20 },
+    { "building": "信息楼D", "seats": 56, "occupied": 25 }
+  ],
+  "cafeteriaRating": [
+    { "name": "第一食堂", "rating": 4.3 },
+    { "name": "第二食堂", "rating": 4.1 },
+    { "name": "第三食堂", "rating": 4.5 },
+    { "name": "教工食堂", "rating": 4.6 },
+    { "name": "美食广场", "rating": 4.2 }
+  ],
+  "weeklyTraffic": [
+    { "day": "周一", "traffic": 1330 },
+    { "day": "周二", "traffic": 1540 },
+    { "day": "周三", "traffic": 1435 },
+    { "day": "周四", "traffic": 1630 },
+    { "day": "周五", "traffic": 1730 },
+    { "day": "周六", "traffic": 1140 },
+    { "day": "周日", "traffic": 740 }
+  ],
+  "seatDistribution": [
+    { "name": "图书馆", "value": 272 },
+    { "name": "教学楼A", "value": 180 },
+    { "name": "教学楼B", "value": 160 },
+    { "name": "实验楼C", "value": 110 },
+    { "name": "信息楼D", "value": 56 }
+  ]
+}

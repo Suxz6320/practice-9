@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "第一食堂",
+    "location": "东区",
+    "floors": 3,
+    "seats": 600,
+    "occupied": 420,
+    "rating": 4.3,
+    "priceLevel": 2,
+    "popularDishes": ["红烧肉套餐", "清蒸鲈鱼", "番茄炒蛋"],
+    "openTime": "06:30-20:00",
+    "weeklyTraffic": [320, 380, 350, 400, 420, 280, 180]
+  },
+  {
+    "id": 2,
+    "name": "第二食堂",
+    "location": "西区",
+    "floors": 2,
+    "seats": 400,
+    "occupied": 300,
+    "rating": 4.1,
+    "priceLevel": 1,
+    "popularDishes": ["黄焖鸡米饭", "兰州拉面", "沙县小吃"],
+    "openTime": "06:30-21:00",
+    "weeklyTraffic": [280, 320, 300, 340, 360, 240, 150]
+  },
+  {
+    "id": 3,
+    "name": "第三食堂（清真）",
+    "location": "南区",
+    "floors": 1,
+    "seats": 200,
+    "occupied": 120,
+    "rating": 4.5,
+    "priceLevel": 2,
+    "popularDishes": ["新疆大盘鸡", "兰州牛肉面", "手抓饭"],
+    "openTime": "07:00-20:30",
+    "weeklyTraffic": [180, 210, 195, 220, 230, 160, 100]
+  },
+  {
+    "id": 4,
+    "name": "教工食堂",
+    "location": "北区",
+    "floors": 2,
+    "seats": 300,
+    "occupied": 150,
+    "rating": 4.6,
+    "priceLevel": 3,
+    "popularDishes": ["小炒黄牛肉", "清蒸武昌鱼", "蒜蓉西兰花"],
+    "openTime": "07:00-19:30",
+    "weeklyTraffic": [150, 180, 170, 190, 200, 80, 50]
+  },
+  {
+    "id": 5,
+    "name": "美食广场",
+    "location": "中心区",
+    "floors": 1,
+    "seats": 500,
+    "occupied": 450,
+    "rating": 4.2,
+    "priceLevel": 2,
+    "popularDishes": ["麻辣香锅", "韩式炸鸡", "日式寿司"],
+    "openTime": "10:00-22:00",
+    "weeklyTraffic": [400, 450, 420, 480, 520, 380, 260]
+  }
+]

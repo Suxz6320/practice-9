@@ -1,0 +1,274 @@
+/* 校园学习生活信息中心 - 自定义样式 */
+:root {
+  --primary-color: #2c5f8d;
+  --primary-light: #4a8bc2;
+  --accent-color: #e67e22;
+  --success-color: #27ae60;
+  --warning-color: #f39c12;
+  --danger-color: #e74c3c;
+  --bg-light: #f5f7fa;
+  --text-dark: #2c3e50;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  padding-top: 70px;
+}
+
+/* 导航栏 */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.navbar-brand .logo-icon {
+  color: var(--accent-color);
+  margin-right: 6px;
+}
+
+/* 首页 Hero 区 */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  color: #fff;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.hero-section h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.hero-section .lead {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* 统计卡片 */
+.stat-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-left: 4px solid var(--primary-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-card .stat-label {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.stat-card.accent { border-left-color: var(--accent-color); }
+.stat-card.accent .stat-value { color: var(--accent-color); }
+.stat-card.success { border-left-color: var(--success-color); }
+.stat-card.success .stat-value { color: var(--success-color); }
+.stat-card.warning { border-left-color: var(--warning-color); }
+.stat-card.warning .stat-value { color: var(--warning-color); }
+
+/* 区块标题 */
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  padding-left: 0.75rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* 卡片通用 */
+.content-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  height: 100%;
+}
+
+/* 图表容器 */
+.chart-container {
+  width: 100%;
+  height: 320px;
+  position: relative;
+}
+
+/* 三维展示容器 */
+.three-container {
+  width: 100%;
+  height: 420px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #1a1a2e;
+  position: relative;
+}
+
+.three-container canvas {
+  display: block;
+}
+
+.three-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* 自习室卡片 */
+.room-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 3px solid var(--primary-color);
+}
+
+.room-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.room-card.status-open { border-top-color: var(--success-color); }
+.room-card.status-full { border-top-color: var(--danger-color); }
+.room-card.status-maintain { border-top-color: var(--warning-color); }
+
+.room-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.room-meta {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+}
+
+.occupancy-bar {
+  height: 8px;
+  background: #ecf0f1;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.occupancy-bar .fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s;
+}
+
+.occupancy-bar .fill.low { background: var(--success-color); }
+.occupancy-bar .fill.mid { background: var(--warning-color); }
+.occupancy-bar .fill.high { background: var(--danger-color); }
+
+.badge-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-right: 4px;
+  background: #eaf2f8;
+  color: var(--primary-color);
+}
+
+.badge-tag.warn { background: #fef5e7; color: var(--warning-color); }
+.badge-tag.ok { background: #eafaf1; color: var(--success-color); }
+
+/* 食堂卡片 */
+.cafeteria-card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  height: 100%;
+}
+
+.stars {
+  color: var(--warning-color);
+  letter-spacing: 2px;
+}
+
+/* 筛选栏 */
+.filter-bar {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+
+/* 错误与提示 */
+.alert-box {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.tip-box {
+  background: #eaf2f8;
+  border-left: 4px solid var(--primary-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #34495e;
+}
+
+.tip-box code {
+  background: #d4e6f1;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: var(--primary-color);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #95a5a6;
+}
+
+/* 页脚 */
+.footer {
+  background: #2c3e50;
+  color: #bdc3c7;
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  body { padding-top: 64px; }
+  .hero-section { padding: 2rem 0; }
+  .hero-section h1 { font-size: 1.6rem; }
+  .stat-card .stat-value { font-size: 1.5rem; }
+  .chart-container { height: 260px; }
+  .three-container { height: 320px; }
+  .section-title { font-size: 1.2rem; }
+}
+
+@media (max-width: 576px) {
+  .filter-bar .row > [class*="col"] {
+    margin-bottom: 0.5rem;
+  }
+}
