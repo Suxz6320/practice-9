@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>自习室管理 - 校园学习生活信息中心</title>
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="logo-icon">🎓</span>校园学习生活信息中心
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" data-page="home" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="rooms" href="study-rooms.html">自习室管理</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="cafeteria" href="cafeteria.html">食堂信息</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="help" href="index.html#help">运行说明</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-section" style="padding:1.5rem 0;">
+    <div class="container text-center">
+      <h1 style="font-size:1.8rem;">自习室查询与管理</h1>
+      <p class="lead mb-0">搜索、筛选、添加、修改自习室信息</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 筛选与操作栏 -->
+    <section class="filter-bar">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+          <label class="form-label small mb-1" for="search-input">🔍 搜索名称</label>
+          <input type="text" id="search-input" class="form-control" placeholder="输入自习室名称…" />
+        </div>
+        <div class="col-md-2">
+          <label class="form-label small mb-1" for="filter-building">楼栋</label>
+          <select id="filter-building" class="form-select">
+            <option value="">全部楼栋</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label small mb-1" for="filter-status">状态</label>
+          <select id="filter-status" class="form-select">
+            <option value="">全部状态</option>
+            <option value="开放">开放</option>
+            <option value="满座">满座</option>
+            <option value="维护中">维护中</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label small mb-1" for="filter-floor">楼层</label>
+          <select id="filter-floor" class="form-select">
+            <option value="">全部楼层</option>
+          </select>
+        </div>
+        <div class="col-md-3 text-md-end">
+          <button id="btn-add" class="btn btn-primary w-100">➕ 添加自习室</button>
+        </div>
+      </div>
+      <div class="mt-2 small text-muted" id="result-count">共加载 0 间自习室</div>
+    </section>
+
+    <!-- 自习室列表 -->
+    <section>
+      <div class="row g-3" id="room-list"></div>
+    </section>
+  </main>
+
+  <!-- 添加/编辑模态框 -->
+  <div class="modal fade" id="room-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title">添加自习室</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="room-form">
+            <input type="hidden" id="room-id" />
+            <div class="row g-3">
+              <div class="col-md-8">
+                <label class="form-label">自习室名称 <span class="text-danger">*</span></label>
+                <input type="text" id="room-name" class="form-control" required maxlength="50" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">状态</label>
+                <select id="room-status" class="form-select">
+                  <option value="开放">开放</option>
+                  <option value="满座">满座</option>
+                  <option value="维护中">维护中</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">所属楼栋 <span class="text-danger">*</span></label>
+                <input type="text" id="room-building" class="form-control" required maxlength="20" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">楼层</label>
+                <input type="number" id="room-floor" class="form-control" min="1" max="99" value="1" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">开放时间</label>
+                <input type="text" id="room-time" class="form-control" placeholder="如 06:00-22:30" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">座位总数</label>
+                <input type="number" id="room-capacity" class="form-control" min="0" value="50" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">已占用</label>
+                <input type="number" id="room-occupied" class="form-control" min="0" value="0" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label d-block">设施</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="room-power" checked />
+                  <label class="form-check-label" for="room-power">电源</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="room-wifi" checked />
+                  <label class="form-check-label" for="room-wifi">WiFi</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="room-quiet" checked />
+                  <label class="form-check-label" for="room-quiet">静音</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" id="btn-save" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">校园学习生活信息中心 &copy; 2026 &nbsp;|&nbsp; 个人实训作品</div>
+  </footer>
+
+  <script src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="js/fallback-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/study-rooms.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>食堂信息 - 校园学习生活信息中心</title>
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="logo-icon">🎓</span>校园学习生活信息中心
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" data-page="home" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="rooms" href="study-rooms.html">自习室管理</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="cafeteria" href="cafeteria.html">食堂信息</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="help" href="index.html#help">运行说明</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-section" style="padding:1.5rem 0;">
+    <div class="container text-center">
+      <h1 style="font-size:1.8rem;">食堂信息中心</h1>
+      <p class="lead mb-0">各食堂评分、客流与热门菜品一览</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 筛选栏 -->
+    <section class="filter-bar">
+      <div class="row g-2 align-items-end">
+        <div class="col-md-4">
+          <label class="form-label small mb-1" for="filter-location">按区域筛选</label>
+          <select id="filter-location" class="form-select">
+            <option value="">全部区域</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label small mb-1" for="filter-sort">排序方式</label>
+          <select id="filter-sort" class="form-select">
+            <option value="rating-desc">评分从高到低</option>
+            <option value="rating-asc">评分从低到高</option>
+            <option value="seats-desc">座位数从多到少</option>
+            <option value="name-asc">名称 A→Z</option>
+          </select>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <button id="btn-refresh" class="btn btn-outline-secondary w-100">🔄 刷新数据</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 食堂卡片列表 -->
+    <section class="mb-4">
+      <div class="row g-3" id="cafeteria-list"></div>
+    </section>
+
+    <!-- 食堂图表 -->
+    <section class="mb-4">
+      <h2 class="section-title">食堂数据分析</h2>
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="content-card">
+            <h5 class="mb-3">各食堂评分对比</h5>
+            <div id="chart-rating" class="chart-container"></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="content-card">
+            <h5 class="mb-3">本周各食堂客流</h5>
+            <div id="chart-weekly" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">校园学习生活信息中心 &copy; 2026 &nbsp;|&nbsp; 个人实训作品</div>
+  </footer>
+
+  <script src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js"></script>
+  <script src="https://cdn.staticfile.org/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <script src="js/fallback-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/cafeteria.js"></script>
+</body>
+</html>

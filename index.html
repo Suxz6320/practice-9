@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>校园学习生活信息中心</title>
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- 自定义样式 -->
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="logo-icon">🎓</span>校园学习生活信息中心
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" data-page="home" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="rooms" href="study-rooms.html">自习室管理</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="cafeteria" href="cafeteria.html">食堂信息</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="help" href="#help">运行说明</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero 区 -->
+  <header class="hero-section">
+    <div class="container text-center">
+      <h1>校园学习生活信息中心</h1>
+      <p class="lead">一站式查询自习室、食堂等校园公共服务信息，数据驱动，三维可视</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 统计卡片 -->
+    <section class="mb-4">
+      <div class="row g-3" id="stat-cards">
+        <div class="col-6 col-md-3">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-rooms">--</div>
+            <div class="stat-label">自习室数量</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card accent">
+            <div class="stat-value" id="stat-seats">--</div>
+            <div class="stat-label">自习座位总数</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card success">
+            <div class="stat-value" id="stat-occupied">--</div>
+            <div class="stat-label">已占用座位</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-card warning">
+            <div class="stat-value" id="stat-cafeteria">--</div>
+            <div class="stat-label">食堂数量</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 图表区 -->
+    <section class="mb-4">
+      <h2 class="section-title">数据概览</h2>
+      <div class="row g-3">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h5 class="mb-3">各教学楼自习座位占用情况</h5>
+            <div id="chart-building" class="chart-container"></div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="content-card">
+            <h5 class="mb-3">座位分布占比</h5>
+            <div id="chart-pie" class="chart-container"></div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="content-card">
+            <h5 class="mb-3">本周食堂客流趋势</h5>
+            <div id="chart-traffic" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三维展示区 -->
+    <section class="mb-4">
+      <h2 class="section-title">校园三维展示</h2>
+      <div class="content-card">
+        <p class="text-muted small mb-3">使用 Three.js 构建的校园建筑模型，可鼠标拖拽旋转、滚轮缩放。红色建筑为图书馆，蓝色为教学楼，绿色为食堂。</p>
+        <div class="three-container" id="three-container">
+          <div class="three-loading" id="three-loading">三维场景加载中…</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 运行说明 -->
+    <section class="mb-4" id="help">
+      <h2 class="section-title">运行说明</h2>
+      <div class="content-card">
+        <div class="tip-box">
+          <strong>推荐运行方式（本地服务器）：</strong><br />
+          由于浏览器安全策略，直接双击 <code>index.html</code> 打开时，<code>fetch</code> 加载本地 JSON 可能被拦截。
+          建议在项目根目录启动一个本地静态服务器：
+          <ul class="mt-2 mb-0">
+            <li>Python：<code>python -m http.server 8000</code>，然后访问 <code>http://localhost:8000</code></li>
+            <li>Node.js：<code>npx serve</code> 或 <code>npx http-server</code></li>
+            <li>VS Code：安装 Live Server 插件后右键 <code>index.html</code> → Open with Live Server</li>
+          </ul>
+        </div>
+        <div class="tip-box" style="border-left-color:#27ae60;">
+          <strong>直接打开也能用：</strong>本项目内置了兜底数据，即使 fetch 失败，页面仍可正常展示数据（控制台会有黄色警告，属正常现象）。
+        </div>
+        <div class="tip-box" style="border-left-color:#f39c12;">
+          <strong>错误处理：</strong>网络断开、数据为空、数据格式错误时，页面会显示明确的中文提示，不会白屏或卡死。可在 Console 中查看详细错误信息。
+        </div>
+        <div class="tip-box" style="border-left-color:#8e44ad;">
+          <strong>技术栈：</strong>HTML5 + CSS3 + JavaScript（ES6）+ Bootstrap 5 + jQuery + ECharts + Chart.js + Three.js。数据基于本地 JSON。
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      校园学习生活信息中心 &copy; 2026 &nbsp;|&nbsp; 个人实训作品 &nbsp;|&nbsp; 技术栈：Bootstrap + jQuery + ECharts + Chart.js + Three.js
+    </div>
+  </footer>
+
+  <!-- 库：jQuery -->
+  <script src="https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js"></script>
+  <!-- 库：Bootstrap JS -->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <!-- 库：ECharts -->
+  <script src="https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js"></script>
+  <!-- 库：Chart.js -->
+  <script src="https://cdn.staticfile.org/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+  <!-- Three.js importmap -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <!-- 兜底数据 + 公共逻辑 -->
+  <script src="js/fallback-data.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- 首页逻辑（统计卡片 + ECharts + Chart.js 图表） -->
+  <script src="js/home.js"></script>
+
+  <!-- Three.js 三维场景（模块化加载） -->
+  <script type="module" src="js/three-scene.js"></script>
+</body>
+</html>
