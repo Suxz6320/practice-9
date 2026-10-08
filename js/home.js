@@ -92,33 +92,17 @@
     window.addEventListener('resize', function () { chart.resize(); });
   }
 
-  // ECharts 折线图：本周食堂客流（自包含，带内联兜底数据）
+  // ECharts 折线图：本周食堂客流（与饼图完全相同的模式）
   function renderTrafficChart(data) {
-    var dom = document.getElementById('chart-traffic');
-    if (!dom) { console.error('chart-traffic 容器不存在'); return; }
-    // 如果传入数据为空，用内联兜底
-    if (!data || !data.length) {
-      data = [
-        { day: '周一', traffic: 1330 }, { day: '周二', traffic: 1540 },
-        { day: '周三', traffic: 1435 }, { day: '周四', traffic: 1630 },
-        { day: '周五', traffic: 1730 }, { day: '周六', traffic: 1140 },
-        { day: '周日', traffic: 740 }
-      ];
-    }
-    dom.innerHTML = '';
-    dom.style.height = '320px';
-    if (typeof echarts === 'undefined') {
-      dom.innerHTML = '<div style="color:#e74c3c;padding:20px;">ECharts 库未加载</div>';
-      return;
-    }
-    var chart = echarts.init(dom);
+    var dom = getChartDom('chart-traffic');
+    if (!dom) return;
+    var chart = checkEcharts(dom);
+    if (!chart) return;
     chart.setOption({
       tooltip: { trigger: 'axis' },
+      legend: { data: ['客流量'], top: 0 },
       grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
-      xAxis: {
-        type: 'category',
-        data: data.map(function (d) { return d.day; })
-      },
+      xAxis: { type: 'category', data: data.map(function (d) { return d.day; }) },
       yAxis: { type: 'value', name: '人次' },
       series: [{
         name: '客流量',
