@@ -8,10 +8,11 @@
   // 加载统计数据并渲染
   window.loadJSON('data/stats.json')
     .then(function (stats) {
-      renderStats(stats.overview);
-      renderBuildingChart(stats.occupancyByBuilding);
-      renderPieChart(stats.seatDistribution);
-      renderTrafficChart(stats.weeklyTraffic);
+      // 每个渲染函数独立 try/catch，防止一个失败阻断其余
+      try { renderStats(stats.overview); } catch (e) { console.error('renderStats:', e); }
+      try { renderBuildingChart(stats.occupancyByBuilding); } catch (e) { console.error('renderBuildingChart:', e); }
+      try { renderPieChart(stats.seatDistribution); } catch (e) { console.error('renderPieChart:', e); }
+      try { renderTrafficChart(stats.weeklyTraffic); } catch (e) { console.error('renderTrafficChart:', e); }
     })
     .catch(function (err) {
       console.error(err);

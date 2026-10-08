@@ -147,15 +147,8 @@
   <!-- 库：Chart.js -->
   <script src="https://cdn.staticfile.org/Chart.js/4.4.0/chart.umd.min.js"></script>
 
-  <!-- Three.js importmap -->
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-    }
-  }
-  </script>
+  <!-- 库：Three.js（全局构建，非模块，兼容 file:// 协议） -->
+  <script src="https://cdn.staticfile.org/three.js/0.147.0/three.min.js"></script>
 
   <!-- 兜底数据 + 公共逻辑 -->
   <script src="js/fallback-data.js"></script>
@@ -164,7 +157,7 @@
   <!-- 首页逻辑（统计卡片 + ECharts + Chart.js 图表） -->
   <script src="js/home.js"></script>
 
-  <!-- Three.js 三维场景（模块化加载） -->
-  <script type="module" src="js/three-scene.js"></script>
+  <!-- Three.js 三维场景（普通脚本，使用全局 THREE） -->
+  <script src="js/three-scene.js"></script>
 </body>
 </html>

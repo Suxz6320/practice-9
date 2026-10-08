@@ -10,11 +10,23 @@
   };
 
   /**
-   * 加载 JSON 数据，优先 fetch，失败时使用内嵌兜底数据。
+   * 加载 JSON 数据。
+   * - file:// 协议下直接使用内嵌兜底数据（fetch 会因 CORS 失败或挂起）
+   * - http(s):// 下优先 fetch，失败时回退到兜底数据
    * @param {string} url - JSON 文件路径
    * @returns {Promise<any>} 解析后的数据
    */
   window.loadJSON = function (url) {
+    // file:// 协议下 fetch 不可靠，直接用兜底数据
+    if (window.location.protocol === 'file:') {
+      console.warn('[loadJSON] file:// 协议，直接使用兜底数据:', url);
+      const data = FALLBACK[url];
+      if (data === undefined) {
+        return Promise.reject(new Error('数据加载失败：' + url + '（file:// 协议无兜底数据）'));
+      }
+      return Promise.resolve(data);
+    }
+    // 正常 http(s) 协议，使用 fetch
     return fetch(url)
       .then(function (res) {
         if (!res.ok) {

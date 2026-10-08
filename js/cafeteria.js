@@ -12,8 +12,8 @@
         cafeterias = data.slice();
         initLocationFilter();
         render();
-        renderRatingChart(cafeterias);
-        renderWeeklyChart(cafeterias);
+        try { renderRatingChart(cafeterias); } catch (e) { console.error('renderRatingChart:', e); }
+        try { renderWeeklyChart(cafeterias); } catch (e) { console.error('renderWeeklyChart:', e); }
       })
       .catch(function (err) {
         console.error(err);
