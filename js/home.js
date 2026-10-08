@@ -1,4 +1,4 @@
-/* 首页逻辑：统计卡片 + ECharts + Chart.js 图表（原生 DOM，不依赖 jQuery） */
+/* 首页逻辑：统计卡片 + ECharts 三类图表（原生 DOM，不依赖 jQuery/Chart.js） */
 (function () {
   'use strict';
 
@@ -13,11 +13,27 @@
     })
     .catch(function (err) {
       console.error('首页数据加载失败:', err);
-      window.showToast('数据加载失败：' + err.message, 'danger', 4000);
       ['chart-building','chart-pie','chart-traffic'].forEach(function (id) {
         window.renderError('#' + id, '无法加载数据：' + err.message);
       });
     });
+
+  // 清空容器的"正在加载…"文字，返回 DOM 元素
+  function getChartDom(id) {
+    var dom = document.getElementById(id);
+    if (!dom) { console.error('容器不存在:', id); return null; }
+    dom.innerHTML = ''; // 清空"正在加载…"
+    return dom;
+  }
+
+  // 检查 ECharts 是否加载
+  function checkEcharts(dom) {
+    if (typeof echarts === 'undefined') {
+      window.renderError(dom, 'ECharts 库未加载，请检查网络连接。');
+      return null;
+    }
+    return echarts.init(dom);
+  }
 
   function renderStats(ov) {
     var set = function (id, val) {
@@ -30,14 +46,12 @@
     set('stat-cafeteria', ov.cafeterias);
   }
 
+  // ECharts 柱状图：各教学楼座位占用
   function renderBuildingChart(data) {
-    var dom = document.getElementById('chart-building');
-    if (!dom) { console.error('chart-building 容器不存在'); return; }
-    if (typeof echarts === 'undefined') {
-      window.renderError(dom, 'ECharts 库未加载，请检查网络连接或使用本地服务器。');
-      return;
-    }
-    var chart = echarts.init(dom);
+    var dom = getChartDom('chart-building');
+    if (!dom) return;
+    var chart = checkEcharts(dom);
+    if (!chart) return;
     chart.setOption({
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
       legend: { data: ['已占用', '空闲'], top: 0 },
@@ -52,52 +66,38 @@
     window.addEventListener('resize', function () { chart.resize(); });
   }
 
+  // ECharts 饼图：座位分布占比（原来用 Chart.js，改用 ECharts 避免 canvas 问题）
   function renderPieChart(data) {
-    var ctx = document.getElementById('chart-pie');
-    if (!ctx) { console.error('chart-pie 容器不存在'); return; }
-    if (typeof Chart === 'undefined') {
-      window.renderError(ctx, 'Chart.js 库未加载，请检查网络连接或使用本地服务器。');
-      return;
-    }
-    var colors = ['#2c5f8d', '#4a8bc2', '#e67e22', '#27ae60', '#9b59b6'];
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: data.map(function (d) { return d.name; }),
-        datasets: [{
-          data: data.map(function (d) { return d.value; }),
-          backgroundColor: colors,
-          borderWidth: 2,
-          borderColor: '#fff'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'bottom', labels: { font: { size: 11 } } },
-          tooltip: {
-            callbacks: {
-              label: function (c) {
-                var total = c.dataset.data.reduce(function (a, b) { return a + b; }, 0);
-                var pct = ((c.parsed / total) * 100).toFixed(1);
-                return c.label + ': ' + c.parsed + ' 座 (' + pct + '%)';
-              }
-            }
-          }
-        }
-      }
+    var dom = getChartDom('chart-pie');
+    if (!dom) return;
+    var chart = checkEcharts(dom);
+    if (!chart) return;
+    chart.setOption({
+      tooltip: { trigger: 'item', formatter: '{b}: {c} 座 ({d}%)' },
+      legend: { bottom: 0, labels: { font: { size: 11 } } },
+      series: [{
+        name: '座位分布',
+        type: 'pie',
+        radius: ['40%', '70%'],   // 环形图
+        avoidLabelOverlap: false,
+        label: { show: false },
+        emphasis: { label: { show: true, fontSize: 14, fontWeight: 'bold' } },
+        labelLine: { show: false },
+        data: data.map(function (d, i) {
+          var colors = ['#2c5f8d', '#4a8bc2', '#e67e22', '#27ae60', '#9b59b6'];
+          return { value: d.value, name: d.name, itemStyle: { color: colors[i % colors.length] } };
+        })
+      }]
     });
+    window.addEventListener('resize', function () { chart.resize(); });
   }
 
+  // ECharts 折线图：本周食堂客流
   function renderTrafficChart(data) {
-    var dom = document.getElementById('chart-traffic');
-    if (!dom) { console.error('chart-traffic 容器不存在'); return; }
-    if (typeof echarts === 'undefined') {
-      window.renderError(dom, 'ECharts 库未加载，请检查网络连接或使用本地服务器。');
-      return;
-    }
-    var chart = echarts.init(dom);
+    var dom = getChartDom('chart-traffic');
+    if (!dom) return;
+    var chart = checkEcharts(dom);
+    if (!chart) return;
     chart.setOption({
       tooltip: { trigger: 'axis' },
       grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
